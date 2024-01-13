@@ -1,4 +1,3 @@
-```markdown
 # Aril Portfolio
 
 Welcome to my portfolio! This is a collection of my projects and achievements that showcase my skills and experiences.
