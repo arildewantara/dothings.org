@@ -1,3 +1,4 @@
+```markdown
 # Aril Portfolio
 
 Welcome to my portfolio! This is a collection of my projects and achievements that showcase my skills and experiences.
@@ -29,6 +30,12 @@ Provide a brief overview of the second project, similar to the first.
 - **Database:** [List of databases you are familiar with]
 - **Tools and Frameworks:** [List of tools and frameworks you have experience with]
 
+## Dark Mode
+
+To enhance your viewing experience, this portfolio supports a dark mode. You can enable dark mode by:
+
+1. **Clicking the moon icon** located in the top right corner of the page.
+
 ## Education
 
 - **Degree:** [Your degree]
@@ -46,4 +53,4 @@ Special thanks to the creators of the "Aril" theme for the inspiration and aesth
 
 ---
 
-**Note:** Replace the placeholder text with your actual information. You can also add additional sections or customize it further based on your needs.
+**Note:** Replace the placeholder text with your actual information. You can customize it further based on your needs, and make sure to include relevant information about how dark mode can be enabled on your portfolio.
