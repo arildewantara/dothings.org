@@ -1,1 +1,195 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Card</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+    }
+    .card {
+      width: 70vw;
+      height: 80vh;
+      margin: 10vh 15vw;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      border-radius: 2px;
+      padding: 18vh 10vw;
+      box-sizing: border-box;
+      position: relative;
+      animation: card 0.8s ease-out;
+      animation-fill-mode: forwards;
+    }
+    .card .content {
+      font-family: 'Open Sans', sans-serif;
+      letter-spacing: 2px;
+    }
+    .card .content h1 {
+      display: inline-block;
+      padding: 8px 16px;
+      margin: 4px 0;
+      width: auto;
+      font-family: 'PT Serif', serif;
+      transform: scale(1, 0.9);
+    }
+    .card .content p {
+      margin: 4px 0;
+      padding: 4px 16px;
+      display: inline-block;
+    }
+    .card .content p, .card .content h4, .card .content h5, .card .content h6 {
+      font-weight: 100;
+    }
+    .card .content a {
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 -3px rgba(255, 255, 255, 0.3) inset;
+    }
+    .card .content .column {
+      display: inline-block;
+      width: 20vw;
+      margin-top: 16px;
+      font-size: 0.8em;
+    }
+    .card .content .column * {
+      margin: 3px 0;
+      display: inline-block;
+    }
+    .card .content .tabs {
+      position: absolute;
+      bottom: 2.5vh;
+      right: 2.5vw;
+      font-size: 0.6em;
+    }
+    .card .content .tabs .tab {
+      margin: 0 8px;
+      padding: 0;
+      float: right;
+      font-weight: 100;
+    }
+    .card .content .light {
+      color: white;
+    }
+    .card .content .medium {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .card .content .dark {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .card * {
+      padding-left: 0 !important;
+    }
+    .card p, .card h1, .card h2, .card h3, .card h4, .card h5, .card h6, .card div * {
+      animation: fadein 3s;
+    }
+    .card p.light, .card h1.light, .card h2.light, .card h3.light, .card h4.light, .card h5.light, .card h6.light, .card div.light * {
+      animation: boxshadow-light 3s;
+    }
+    .card p.medium, .card h1.medium, .card h2.medium, .card h3.medium, .card h4.medium, .card h5.medium, .card h6.medium, .card div.medium * {
+      animation: boxshadow-medium 3s;
+    }
+    .card p.dark, .card h1.dark, .card h2.dark, .card h3.dark, .card h4.dark, .card h5.dark, .card h6.dark, .card div.dark * {
+      animation: boxshadow-dark 3s;
+    }
+    @keyframes card {
+      0%, 50% {
+        box-shadow: -70vw 0 0 2vw rgba(255, 255, 255, 0.05) inset, -140vw 0 0 2vw rgba(255, 255, 255, 0.05) inset;
+      }
+      100% {
+        box-shadow: 0 0 0 2vw rgba(255, 255, 255, 0.05) inset, calc(-66vw + 1px) 0 0 2vw rgba(255, 255, 255, 0.05) inset;
+      }
+    }
+    @keyframes boxshadow-light {
+      0%, 40% {
+        color: rgba(0, 0, 0, 0);
+        box-shadow: 0 0 white inset;
+      }
+      79.9999999999999% {
+        box-shadow: 50vw 0 white inset;
+        color: rgba(0, 0, 0, 0);
+      }
+      80% {
+        box-shadow: -50vw 0 white inset;
+        color: rgba(0, 0, 0, 0);
+      }
+      100% {
+        color: white;
+        box-shadow: 0 0 white inset;
+      }
+    }
+    @keyframes boxshadow-medium {
+      0%, 40% {
+        color: rgba(0, 0, 0, 0);
+        box-shadow: 0 0 rgba(255, 255, 255, 0.85) inset;
+      }
+      79.9999999999999% {
+        box-shadow: 50vw 0 rgba(255, 255, 255, 0.85) inset;
+        color: rgba(0, 0, 0, 0);
+      }
+      80% {
+        box-shadow: -50vw 0 rgba(255, 255, 255, 0.85) inset;
+        color: rgba(0, 0, 0, 0);
+      }
+      100% {
+        color: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 0 rgba(255, 255, 255, 0.85) inset;
+      }
+    }
+    @keyframes boxshadow-dark {
+      0%, 40% {
+        color: rgba(0, 0, 0, 0);
+        box-shadow: 0 0 rgba(255, 255, 255, 0.5) inset;
+      }
+      79.9999999999999% {
+        box-shadow: 50vw 0 rgba(255, 255, 255, 0.5) inset;
+        color: rgba(0, 0, 0, 0);
+      }
+      80% {
+        box-shadow: -50vw 0 rgba(255, 255, 255, 0.5) inset;
+        color: rgba(0, 0, 0, 0);
+      }
+      100% {
+        color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 rgba(255, 255, 255, 0.5) inset;
+      }
+    }
+    @keyframes fadein {
+      0%, 80% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="content">
+      <h1 class="light">Hi! I'm Aril Dewantara<span class="dark">.</span></h1>
+      <p class="medium">Caffeine addicted and guitarist<a class="light" href="#">Major Food</a></p>
+      <p class="medium">Thanks to coffee let me done my stuff lol</p>
+      <div class="column">
+        <h6 class="dark">Things</h6>
+        <br>
+        <h5 class="medium">I like chicken especially Indonesian KFC, the best!</h5>
+        <h5 class="medium">What your favorite food?</h5>
+      </div>
+      <div class="column">
+        <h6 class="dark">Stuff</h6>
+        <br>
+        <h5 class="medium">Fullstack</h5>
+        <h5 class="medium">i dont play game</h5>
+      </div>
+      <div class="tabs dark">
+        <p class="tab">Stuff 1</p>
+        <p class="tab">Coffee</p>
+        <p class="tab">Two</p>
+        <p class="tab">Toasted bread, yummy!</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
