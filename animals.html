@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Animal Names</title>
+    <style>
+        /* --- style.css content starts here --- */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f8ff; /* Light blue background */
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-section p, .instruction {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            width: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        #result h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        #animalList {
+            list-style: none;
+            padding: 0;
+            max-height: 400px; /* Limit height for scrollability */
+            overflow-y: auto; /* Add scroll if list is too long */
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        #animalList li {
+            padding: 8px 15px;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+
+        #animalList li:last-child {
+            border-bottom: none;
+        }
+
+        /* We're no longer adding this class via JS, but it can stay in CSS without harm */
+        #animalList li.highlight {
+            background-color: #fffacd;
+            font-weight: bold;
+            color: #000;
+        }
+
+        #predictionMessage {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff; /* Blue for the prediction message */
+            margin-top: 15px;
+        }
+
+        /* Style for initial instruction */
+        .instruction {
+            font-style: italic;
+            color: #888;
+        }
+        /* --- style.css content ends here --- */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>List of Animal Names</h1>
+
+        <div class="input-section">
+            <p>Spectator, choose a number between 1 and 100:</p>
+            <input type="number" id="spectatorInput" min="1" max="100" placeholder="Enter your number">
+            <button id="predictButton">Choise!</button>
+        </div>
+
+        <div id="result">
+            <h2>100 Animals Names</h2>
+            <p class="instruction">Watch the list below!</p>
+            <ul id="animalList">
+                </ul>
+            <p id="predictionMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        /* --- script.js content starts here --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const spectatorInput = document.getElementById('spectatorInput');
+            const predictButton = document.getElementById('predictButton');
+            const animalListElement = document.getElementById('animalList');
+            const predictionMessage = document.getElementById('predictionMessage');
+            const instructionMessage = document.querySelector('.instruction');
+
+            const allAnimals = [
+                "Aardvark", "Albatross", "Alligator", "Alpaca", "Ant", "Anteater", "Antelope",
+                "Ape", "Armadillo", "Baboon", "Badger", "Bald Eagle", "Barracuda", "Bat",
+                "Bear", "Beaver", "Bee", "Beetle", "Bison", "Black Panther", "Boar", "Buffalo",
+                "Butterfly", "Camel", "Canary", "Capybara", "Caracal", "Cardinal", "Carp",
+                "Cat", "Caterpillar", "Catfish", "Chameleon", "Cheetah", "Chicken", "Chimpanzee",
+                "Chinchilla", "Clownfish", "Cobra", "Cockroach", "Cod", "Coelacanth", "Condor",
+                "Coral", "Cougar", "Cow", "Coyote", "Crab", "Crane", "Crocodile", "Crow",
+                "Cuckoo", "Cuscus", "Deer", "Dingo", "Dog", "Dolphin", "Donkey", "Dragonfly",
+                "Duck", "Dugong", "Eagle", "Echidna", "Eel", "Elephant", "Elk", "Emu", "Falcon",
+                "Ferret", "Finch", "Fish", "Flamingo", "Fly", "Fox", "Frog", "Gazelle", "Gecko",
+                "Giant Panda", "Gibbon", "Giraffe", "Gnat", "Gnu", "Goat", "Goose", "Gorilla",
+                "Grasshopper", "Great White Shark", "Grizzly Bear", "Grouse", "Guinea Pig",
+                "Haddock", "Hamster", "Hare", "Hawk", "Hedgehog", "Herring", "Hippopotamus",
+                "Horse", "Hummingbird", "Hyena", "Ibis", "Iguana", "Impala", "Jackal", "Jaguar",
+                "Jellyfish", "Kangaroo", "King Cobra", "Kingfisher", "Kiwi", "Koala", "Komodo Dragon",
+                "Kookaburra", "Krill", "Ladybug", "Lemur", "Leopard", "Lion", "Lizard", "Llama",
+                "Lobster", "Loggerhead Turtle", "Macaw", "Mackerel", "Magpie", "Mallard", "Manatee",
+                "Manta Ray", "Mantis", "Marten", "Meerkat", "Mink", "Mole", "Mongoose", "Monkey",
+                "Moose", "Mosquito", "Moth", "Mouse", "Mule", "Mussel", "Narwhal", "Newt",
+                "Nightingale", "Octopus", "Okapi", "Opossum", "Orangutan", "Ostrich", "Otter",
+                "Owl", "Oyster", "Panda", "Pangolin", "Parrot", "Peacock", "Pelican", "Penguin",
+                "Pheasant", "Pig", "Pigeon", "Pike", "Piranha", "Platypus", "Polar Bear", "Pony",
+                "Porcupine", "Porpoise", "Praying Mantis", "Proboscis Monkey", "Pufferfish", "Puffin",
+                "Puma", "Python", "Quail", "Quokka", "Rabbit", "Raccoon", "Ram", "Rat", "Raven",
+                "Red Panda", "Reindeer", "Rhinoceros", "Robin", "Rooster", "Salmon", "Sandpiper",
+                "Sardine", "Scorpion", "Sea Lion", "Seahorse", "Seal", "Shark", "Sheep", "Shrimp",
+                "Skunk", "Sloth", "Slug", "Snail", "Snake", "Snow Leopard", "Sparrow", "Spider",
+                "Sponge", "Squid", "Squirrel", "Starfish", "Stingray", "Stork", "Sumatran Tiger",
+                "Sun Bear", "Swallow", "Swan", "Tapir", "Tarsier", "Tasmanian Devil", "Tiger",
+                "Toad", "Toucan", "Trout", "Tuna", "Turkey", "Turtle", "Viper", "Vole", "Vulture",
+                "Wallaby", "Walrus", "Wasp", "Weasel", "Whale", "Wild Boar", "Wolf", "Wolverine",
+                "Wombat", "Woodchuck", "Woodpecker", "Worm", "Yak", "Zebra", "Zebu"
+            ];
+
+            // Helper function to shuffle an array
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+                }
+                return array;
+            }
+
+            // Function to populate the animal list
+            function populateAnimalList(animals) {
+                animalListElement.innerHTML = ''; // Clear previous list
+                animals.forEach((animal, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Number ${index + 1}: ${animal}`;
+                    animalListElement.appendChild(listItem);
+                });
+            }
+
+            // Generate and display the initial list of 100 random animals
+            function generateInitialList() {
+                let initialAnimals = shuffleArray([...allAnimals]);
+                // Ensure we have exactly 100 animals for the initial display
+                if (initialAnimals.length < 100) {
+                    // If the allAnimals list is too short, we'll repeat animals to fill to 100
+                    let temp = [];
+                    for (let i = 0; i < 100; i++) {
+                        temp.push(initialAnimals[i % initialAnimals.length]);
+                    }
+                    initialAnimals = temp;
+                } else {
+                    initialAnimals = initialAnimals.slice(0, 100);
+                }
+                populateAnimalList(initialAnimals);
+                predictionMessage.textContent = ''; // Hide the prediction message initially
+            }
+
+            // Function to update the list with the prediction
+            function updateListWithPrediction() {
+                const spectatorChoice = parseInt(spectatorInput.value);
+
+                if (isNaN(spectatorChoice) || spectatorChoice < 1 || spectatorChoice > 100) {
+                    alert("Please enter a valid number between 1 and 100.");
+                    return;
+                }
+
+                // Generate a new set of other animals to ensure randomness each time
+                // Filter out "Blobfish" if it were accidentally in the `allAnimals` list
+                let animalsWithoutBlobfish = allAnimals.filter(animal => animal !== "Blobfish");
+                let shuffledAnimalsForPrediction = shuffleArray([...animalsWithoutBlobfish]);
+
+
+                // Create the prediction list, ensuring it's exactly 100 items
+                let predictionList = [];
+                for (let i = 0; i < 100; i++) {
+                    // Cycle through shuffled animals if allAnimals is less than 100 unique entries
+                    predictionList.push(shuffledAnimalsForPrediction[i % shuffledAnimalsForPrediction.length]);
+                }
+
+                // The spectator's choice is 1-indexed, JavaScript arrays are 0-indexed.
+                const blobfishIndex = spectatorChoice - 1;
+
+                // Ensure Blobfish replaces whatever was at that position
+                predictionList[blobfishIndex] = "Blobfish";
+
+                // Update the list display (no highlighting applied here)
+                populateAnimalList(predictionList);
+
+                // Display the prediction message
+                //predictionMessage.textContent = `And look! Your chosen number, ${spectatorChoice}, is: Blobfish! Amazing, isn't it?`;
+                instructionMessage.style.display = 'none'; // Hide the initial instruction
+
+                // Disable input and button after prediction
+                spectatorInput.disabled = true;
+                predictButton.disabled = true;
+
+                // Scroll directly to the chosen item without highlighting it
+                const chosenItemElement = animalListElement.children[blobfishIndex];
+                if (chosenItemElement) {
+                    chosenItemElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            // Initialize the list when the page loads
+            generateInitialList();
+
+            // Attach event listener to the predict button
+            predictButton.addEventListener('click', updateListWithPrediction);
+
+            // Optional: Allow pressing Enter key to predict
+            spectatorInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    updateListWithPrediction();
+                }
+            });
+        });
+        /* --- script.js content ends here --- */
+    </script>
+</body>
+</html>
